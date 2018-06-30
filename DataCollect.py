@@ -30,6 +30,7 @@ information to scrape the data from combiendebises.com
 from bs4 import BeautifulSoup
 import urllib.request, urllib.error, urllib.parse
 import re
+import pandas as pd
 
 hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -75,18 +76,3 @@ def bises(departement):
 		Bises[result.group(2)] = int(result.group(1))
 	
 	return Bises	
-
-# Get list of departements
-Departements = departements()
-    
-Info = {dep: bises(code) for dep, code in Departements.items()}
-    
-def main(args):
-    # Get list of departements
-    Departements = departements()
-    
-    Info = {dep: bises(code) for dep, code in Departements.items()}
-
-
-if __name__ == '__main__':
-	
