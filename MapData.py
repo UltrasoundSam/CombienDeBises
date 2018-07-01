@@ -58,7 +58,7 @@ def plot_data(bise, dataframe, ax):
     # Create colourmap, fill in constituency polygons with % First-class travel
     cmap = plt.get_cmap('hot')   
     pc = PatchCollection(dataframe.shapes, zorder=2)
-    norm = Normalize()
+    norm = Normalize(vmin=0, vmax=100)
     
     pc.set_facecolor(cmap(norm(dataframe[str(bise)].fillna(0).values)))
     ax.add_collection(pc)
@@ -67,12 +67,11 @@ def plot_data(bise, dataframe, ax):
     
     mapper.set_array(dataframe[str(bise)])
     cbar = plt.colorbar(mapper, ticks=range(0, 101, 10))
-    cbar.set_clim(0, 100)
     cbar.set_label('Percentage of People who give {0} bises'.format(bise))
 
 
 def main(args):
-    fig, ax = plt.subplots(figsize=(10,20))
+    fig, ax = plt.subplots()
     m, df_poly = draw_map()
     
     # Get list of departements
