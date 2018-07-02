@@ -52,6 +52,7 @@ def draw_map():
         'shapes': [Polygon(np.array(shape), True) for shape in m.areas],
         'area': [area['nom'] for area in m.areas_info]
         })
+    df_poly['area'] = df_poly['area'].str.lower()
     return (m, df_poly)
 
 def plot_data(bise, dataframe, ax):
@@ -82,6 +83,7 @@ def main(args):
     Info = pd.DataFrame(Info).transpose().fillna(0)
     Info = Info.reset_index()
     Info = Info.rename(columns={'index': 'area'})
+    Info['area'] = Info['area'].str.lower()
     
     # Merge Bises and shapefile data
     df_poly = df_poly.merge(Info, on='area', how='left')
